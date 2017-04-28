@@ -52,6 +52,34 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
+                            <label for="status" class="col-md-4 control-label">Status</label>
+
+                            <div class="col-md-6">
+                                <input id="status" type="number" class="form-control" name="status" value="{{ old('status') }}" required>
+
+                                @if ($errors->has('status'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('status') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('funcionario_id') ? ' has-error' : '' }}">
+                            <label for="funcionario_id" class="col-md-4 control-label">Funcionario</label>
+
+                            <div class="col-md-6">
+                                <input id="funcionario_id" type="number" class="form-control" name="funcionario_id" value="{{ old('funcionario_id') }}" required>
+
+                                @if ($errors->has('funcionario_id'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('funcionario_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>
 

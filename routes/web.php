@@ -11,10 +11,31 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
+Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
+
+Route::put('funcionarios/foto/{id}', 'FuncionarioController@editFoto');
+Route::get('funcionarios/profile', 'FuncionarioController@profile');
+Route::get('funcionarios/profileEdit', 'FuncionarioController@profileEdit');
+Route::put('funcionarios/profileUpdate', 'FuncionarioController@profileUpdate');
+Route::put('funcionarios/profileEditFoto', 'FuncionarioController@profileEditFoto');
+
+Route::resource('funcionarios', 'FuncionarioController');
+
+
+Route::put('planos/status/{id}', 'PlanoController@status');
+Route::resource('planos', 'PlanoController');
+
+
+Route::put('treinos/status/{id}', 'TreinoController@status');
+Route::resource('treinos', 'TreinoController');
+
+Route::put('exercicios/status/{id}', 'ExercicioController@status');
+Route::resource('exercicios', 'ExercicioController');
+
+
+Route::post('users/newUser/{id}', 'UserController@newUser');
+Route::put('users/statusUser/{id}', 'UserController@statusUser');
+Route::put('users/editSenha', 'UserController@editSenha');

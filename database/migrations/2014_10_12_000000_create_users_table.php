@@ -19,6 +19,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('auth');
+            $table->integer('status');
+            $table->integer('funcionario_id')->unsigned();
+            $table->foreign('funcionario_id')->references('id')->on('funcionarios')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });
