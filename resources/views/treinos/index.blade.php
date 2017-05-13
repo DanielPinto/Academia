@@ -17,7 +17,7 @@
       <div class="x_panel">
 
         <div class="x_title">
-          <h2>Listagem de Treinos</h2>
+          <h2>Listagem de Tipos de Treinos</h2>
           <div class="clearfix"></div>
         </div>
 
@@ -28,7 +28,7 @@
           <br />
           <div class="row">
             <div class="col-md-12">
-              
+
           <table id="datatable-responsive" class="table table-striped jambo_table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
             <thead>
               <tr class="headings">
@@ -73,13 +73,13 @@
                         <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
                           </button>
-                          <h4 class="modal-title" id="myModalLabel2">Editar o Treino</h4>
+                          <h4 class="modal-title" id="myModalLabel2">Editar o Tipo de Treino</h4>
                         </div>
                         <div class="modal-body">
 
 
                             <div class="form-group">
-                              <label for="name">Nome do Treino</label>
+                              <label for="name">Nome</label>
                               <input type="text" class="form-control" id="name" name="name" value="{{$d->name}}" required>
                             </div>
 
@@ -108,14 +108,14 @@
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
                           </button>
 
-                          <h4 class="modal-title" id="myModalLabel2">Status do Treino</h4>
+                          <h4 class="modal-title" id="myModalLabel2">Status</h4>
                         </div>
 
                         <div class="modal-body">
                             @if ($d->status == 0)
-                              Deseja Ativar o Treino?
+                              Deseja Ativar este Tipo de Treino?
                             @else
-                              Deseja Desativar o Treino?
+                              Deseja Desativar este Tipo de Treino?
                             @endif
 
                         </div>
@@ -167,16 +167,17 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
             </button>
-            <h4 class="modal-title" id="myModalLabel2">Adcionar um Treino</h4>
+            <h4 class="modal-title" id="myModalLabel2">Adcionar um Tipo de Treino</h4>
           </div>
           <div class="modal-body">
 
 
               <div class="form-group">
-                <label for="name">Nome do Treino</label>
+                <label for="name">Nome</label>
                 <input type="text" class="form-control" id="name" name="name" required>
               </div>
 
+              <input type="hidden" name="url" value="treinos">
 
               <div class="form-group">
 

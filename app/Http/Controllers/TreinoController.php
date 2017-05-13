@@ -81,20 +81,22 @@ class TreinoController extends Controller
 
           $data = $this->model->create($insert);
 
+          $url = $request->url;
+
           $_SESSION["message"] = $this->general->messageSuccess('Treino Cadastrado com sucesso!');
 
-          return redirect('treinos');
+          return redirect($url);
 
         }catch (QueryException $e) {
 
           $_SESSION["message"] = $this->general->messageError('Erro ao inserir os dados! '.$e);
 
-          return redirect('treinos');
+          return redirect($url);
 
       }catch(Exception $e){
       $_SESSION["message"] = $this->general->messageError('Erro ao inserir os dados! ');
 
-      return redirect('treinos');
+      return redirect($url);
     }
     }
 

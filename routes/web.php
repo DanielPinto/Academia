@@ -16,6 +16,10 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 
+Route::post('users/newUser/{id}', 'UserController@newUser');
+Route::put('users/statusUser/{id}', 'UserController@statusUser');
+Route::put('users/editSenha', 'UserController@editSenha');
+
 Route::put('funcionarios/foto/{id}', 'FuncionarioController@editFoto');
 Route::get('funcionarios/profile', 'FuncionarioController@profile');
 Route::get('funcionarios/profileEdit', 'FuncionarioController@profileEdit');
@@ -24,6 +28,8 @@ Route::put('funcionarios/profileEditFoto', 'FuncionarioController@profileEditFot
 
 Route::resource('funcionarios', 'FuncionarioController');
 
+Route::resource('alunos', 'AlunoController');
+Route::put('alunos/foto/{id}', 'AlunoController@editFoto');
 
 Route::put('planos/status/{id}', 'PlanoController@status');
 Route::resource('planos', 'PlanoController');
@@ -35,7 +41,8 @@ Route::resource('treinos', 'TreinoController');
 Route::put('exercicios/status/{id}', 'ExercicioController@status');
 Route::resource('exercicios', 'ExercicioController');
 
+Route::resource('formarTreinos', 'FormarTreinoController');
 
-Route::post('users/newUser/{id}', 'UserController@newUser');
-Route::put('users/statusUser/{id}', 'UserController@statusUser');
-Route::put('users/editSenha', 'UserController@editSenha');
+Route::resource('alunoTreinos', 'AlunoTreinoController');
+
+Route::resource('categoria', 'CategoriaController');

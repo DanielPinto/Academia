@@ -78,8 +78,6 @@ class PlanoController extends Controller
             'status' => $request->status,
           ];
 
-
-
           $data = $this->model->create($insert);
 
           $_SESSION["message"] = $this->general->messageSuccess('Plano Cadastrado com sucesso!');

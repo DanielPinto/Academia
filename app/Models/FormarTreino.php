@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Treino;
+use App\Models\Exercicio;
 
 class FormarTreino extends Model
 {
   protected $fillable = [
-      'id_treino','id_exercicio','aparelho','peso','serie','quantidade_serie','tempo',
+      'treino_id','exercicio_id','aparelho','peso','serie','quantidade_serie','tempo',
   ];
+
 }

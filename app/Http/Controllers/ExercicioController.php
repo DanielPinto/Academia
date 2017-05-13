@@ -75,17 +75,14 @@ class ExercicioController extends Controller
 */
           $insert =[
             'name' => $request->name,
-            //'aparelho' => $request->aparelho,
-            //'peso' => $request->peso,
-            //'serie' => $request->serie,
-            //'quantidade_serie' => $request->quantidade_serie,
-            //'tempo' => $request->tempo,
             'status' => $request->status,
           ];
 
 
 
           $data = $this->model->create($insert);
+
+          $this->url = $request->url;
 
           $_SESSION["message"] = $this->general->messageSuccess('Cadastrado efetuado com sucesso!');
 

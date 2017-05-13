@@ -1,3 +1,8 @@
+
+
+
+
+
 @extends('layouts.main')
 
 @section('container')
@@ -167,15 +172,15 @@
 
               <div class="row">
 
-                <div class="col-sm-6">
                   <div class="form-group">
-                    <label for="name">Nome do Exercicio</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+                    <div class="col-md-6 col-sm-6">
+                      <label for="name">Nome do Exercicio</label>
+                      <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
                   </div>
-                </div>
 
 
-                <div class="col-sm-6">
+
                   <div class="form-group">
 
                       <label>Status</label>
@@ -187,12 +192,11 @@
                       </p>
 
                   </div>
-
-                </div>
               </div>
 
           </div>
           <div class="modal-footer">
+              <input type="hidden" name="url" value="exercicios">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Adcionar</button>

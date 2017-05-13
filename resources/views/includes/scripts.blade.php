@@ -187,6 +187,9 @@ $(document).ready(function(){
     $('#idade').mask('000');
     $('#valor').mask('####0.00', {reverse: true});
     $('#valorAdd').mask('####0.00', {reverse: true});
+    $('#peso').mask('#00.00', {reverse: true});
+    $('#altura').mask('0.00', {reverse: true});
+
 
 
 });

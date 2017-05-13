@@ -1,0 +1,37 @@
+[
+  {
+  "id":1,"name":"Daniel Pinto","email":"danielsp.pinto@gmail.com","cpf":"111.111.111-11","rg":"3333333333","telefone_1":"(44) 44444-4444","telefone_2":"(55) 55555-5555","endereco":"Rua Frederico Mentz","cep":"94425-050","numero":"100","complemento":"-","cidade":"Viamo","bairro":"Passo do Vig\u00e1rio","uf":"RS","sexo":"Masculino","data_nascimento":"1979-05-10","profissao":"Tecnico de Inform\u00e1tica","dia_pagamento":10,"status_pagamento":1,"peso":64,"altura":1.75,"foto":"user.png","imc":20.9,"status":1,"atividade_diaria":"trabalho, corrida Matinal","historico_atividade":"academia durante 1 ano a 5 anos atras","categoria_id":2,"plano_id":3,"created_at":"2017-05-05 18:46:56","updated_at":"2017-05-05 18:46:56",
+  "treinos":[]
+  },
+
+  {
+    "id":2,"name":"Jo\u00e3o Jose","email":"joao@gmail.com","cpf":"111.111.111-11","rg":"3333333333","telefone_1":"(22) 22222-2222","telefone_2":"(33) 33333-3333","endereco":"Frederico Mentz-157","cep":"94425-050","numero":"100","complemento":"-","cidade":"Porto Alegre","bairro":"centro","uf":"RS","sexo":"Masculino","data_nascimento":"1987-03-20","profissao":"Advogado","dia_pagamento":5,"status_pagamento":1,"peso":80,"altura":1.56,"foto":"user.png","imc":32.87,"status":1,"atividade_diaria":"Trabalho","historico_atividade":"Academia a 5 anos atras","categoria_id":2,"plano_id":2,"created_at":"2017-05-05 23:08:18","updated_at":"2017-05-05 23:08:18",
+    "treinos":[]
+  },
+
+  {
+    "id":3,"name":"Daniel da Silva Pinto","email":"danielsp.pinto@gmail.com","cpf":"888.888.888-88","rg":"8888888888","telefone_1":"(51) 93049-154","telefone_2":"(51) 93049-154","endereco":"Avenida Crist\u00f3v\u00e3o Colombo","cep":"90560-003","numero":"444444","complemento":"casa","cidade":"Porto Alegre","bairro":"Floresta","uf":"RS","sexo":"Feminio","data_nascimento":"1979-05-11","profissao":"Tecnico de Inform\u00e1tica","dia_pagamento":5,"status_pagamento":1,"peso":45,"altura":1.56,"foto":"user.png","imc":18.49,"status":1,"atividade_diaria":"dsfsfssdasdasd","historico_atividade":"sadasdsadsa","categoria_id":2,"plano_id":2,"created_at":"2017-05-10 19:24:38","updated_at":"2017-05-10 19:24:38",
+    "treinos":[
+              {
+                "id":1,"name":"Treino Leve","status":1,"created_at":"2017-04-28 13:00:57","updated_at":"2017-04-28 13:00:57",
+                "pivot":
+                        {
+                          "aluno_id":3,"treino_id":1,"id":1,"dia_semana":"Segunda"
+                        },
+                  "exercicios":[
+                                {
+                                  "id":5,"name":"Supino reto","status":1,"created_at":"2017-04-30 22:22:56","updated_at":"2017-04-30 22:22:56",
+                                  "pivot":
+                                        {
+                                          "treino_id":1,"exercicio_id":5,"id":7,"aparelho":"barra com pesos","peso":20,"serie":5,"quantidade_serie":8,"tempo":"0"
+                                        }
+                                  },
+            {
+              "id":2,"name":"Abdominal Supra","status":1,"created_at":"2017-04-27 19:57:25","updated_at":"2017-04-27 19:57:35",
+              "pivot":
+                      {
+                        "treino_id":1,"exercicio_id":2,"id":8,"aparelho":"n\u00e3o","peso":0,"serie":0,"quantidade_serie":0,"tempo":"0"
+                        }
+            },
+
+            {"id":5,"name":"Supino reto","status":1,"created_at":"2017-04-30 22:22:56","updated_at":"2017-04-30 22:22:56","pivot":{"treino_id":1,"exercicio_id":5,"id":9,"aparelho":"barra","peso":0,"serie":0,"quantidade_serie":0,"tempo":"0"}},{"id":2,"name":"Abdominal Supra","status":1,"created_at":"2017-04-27 19:57:25","updated_at":"2017-04-27 19:57:35","pivot":{"treino_id":1,"exercicio_id":2,"id":10,"aparelho":"n\u00e3o","peso":0,"serie":0,"quantidade_serie":0,"tempo":"0"}},{"id":1,"name":"Supino","status":1,"created_at":"2017-04-27 19:55:04","updated_at":"2017-04-27 19:55:27","pivot":{"treino_id":1,"exercicio_id":1,"id":13,"aparelho":"n\u00e3o","peso":0,"serie":0,"quantidade_serie":0,"tempo":"0"}},{"id":6,"name":"tricipse","status":1,"created_at":"2017-05-04 17:04:33","updated_at":"2017-05-04 17:04:33","pivot":{"treino_id":1,"exercicio_id":6,"id":17,"aparelho":"tricipse","peso":15,"serie":4,"quantidade_serie":15,"tempo":"0"}}]}]}]

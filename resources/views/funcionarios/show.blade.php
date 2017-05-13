@@ -148,7 +148,7 @@
 
           <a class="btn btn-warning" href="{{$urlFunc}}/{{ $data->id }}/edit"><i class="fa fa-edit m-right-xs"></i> Editar</a>
           @if ($data->status == 1)
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".bs-example-modal-sm-excluir"><i class="glyphicon glyphicon-trash"></i> Excluir</button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".bs-example-modal-sm-excluir"><i class="glyphicon glyphicon-trash"></i> Desativar</button>
           @else
             <button type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-sm-excluir"><i class="glyphicon glyphicon-off"></i> Recuperar</button>
 
