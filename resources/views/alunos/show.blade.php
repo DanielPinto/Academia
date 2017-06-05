@@ -10,6 +10,9 @@
       {{$srcFunc = ''}}
       {{$urlUser = '/users'}}
       {{$urlAlunoTreino = '/alunoTreinos'}}
+      {{$urlPagamento= '/pagamentos'}}
+      {{$urlAvaliacoes= '/avaliacoes'}}
+
 
   </div>
 
@@ -55,7 +58,7 @@
 
           <ul class="list-unstyled user_data">
             <li>
-              @if ($data->status = 1)
+              @if ($data->status == 1)
                 <i class="fa fa-check user-profile-icon"></i> Ativo
 
               @else
@@ -134,7 +137,7 @@
 
           @endif
 
-
+          <div class="clearfix"></div>
 
         </div>
 
@@ -144,148 +147,420 @@
 
     </div>
   </div>
-</div>
+</div> {{--Fecha a 1 Row--}}
+
+
 
 
 
 <div class="clearfix"></div>
-<div class="row">
-  <div class="col-md-6 col-sm-6 col-xs-12">
-    <div class="x_panel">
 
-      <div class="x_title">
-        <h3>
-          Treino
-          <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target=".bs-example-modal-sm-addTreino" >
-            <span class="glyphicon glyphicon-plus"></span>
-          </button>
-        </h3>
-        <div class="clearfix"></div>
+{{--  abertura da 2 row--}}
+
+
+<div class="row">
+
+  {{--  abertura da 1col 2row--}}
+  <div class="col-md-3 col-sm-3 col-xs-12">
+
+      <div class="x_panel">
+
+        <div class="x_title">
+          <h4>IMC</h4>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="x_content">
+
+          <div class="row">
+            <div class="col-md-6 col-xs-12">
+              <h5>peso: {{$data->peso}}</h5>
+            </div>
+            <div class="col-md-6 col-xs-12">
+              <h5>altura: {{$data->altura}}</h5>
+            </div>
+
+          </div>
+          <div class="clearfix"></div>
+          <div class="row">
+            <div class="panel panel-default">
+              <div class="panel-body">
+
+                <div class="col-md-12 col-xs-12">
+                  <h4>IMC: <span class="label label-info">{{$data->imc}}</span></h4>
+                </div>
+
+                <div class="col-md-12 col-xs-12">
+
+                  @if ($data->statusIMC=="Peso Adequado")
+
+                    <h4 class="label label-info">
+                      <i class="fa fa-thumbs-o-up"></i>
+                      {{$data->statusIMC}}
+                    </h4>
+
+                  @else
+
+                    <h4 class="label label-danger">
+                      <i class="fa fa-thumbs-o-down"></i>
+                      {{$data->statusIMC}}
+                    </h4>
+                  @endif
+
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
       </div>
 
-      <div class="x_content">
-        <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+    </div> {{--Fecha a 1col 2row--}}
 
-        @foreach ($data->treinos as $treino)
 
-          <div class="panel">
+    {{--Abre a 2col 2row--}}
 
-            <a class="panel-heading" role="tab" id="heading{{$treino->id}}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$treino->id}}" aria-controls="collapse{{$treino->id}}">
-              <h4 class="panel-title">
-                {{$treino->name}} - <small>{{$treino->pivot->dia_semana}}</small>
-              </h4>
+    <div class="col-md-4 col-sm-4 col-xs-12">
+      <div class="x_panel">
 
-            </a>
+        <div class="x_title">
+          <h4>Pagamentos Abertos</h4>
+          <div class="clearfix"></div>
+        </div>
 
-            <div id="collapse{{$treino->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$treino->id}}">
+        <div class="x_content">
 
-            <div class="panel-body">
-              <button type="button" name="button" class="btn btn-xs btn-danger pull-right">
-                <i class="fa fa-close"></i> deletar
-              </button>
-              <table class="table table-responsive table-hover">
-                <thead>
-                  <th>Exercicio</th>
-                  <th>Aparelho</th>
-                  <th>Peso</th>
-                  <th>serie</th>
-                  <th>Quantidade</th>
-                  <th>Tempo</th>
-                </thead>
+          <div class="table-responsive">
+            <table class="table" >
+              <thead>
+                <tr>
+                  <th>Vencimento</th>
+                  <th>Status</th>
+                  <th>ação</th>
+                </tr>
+              </thead>
+              <tbody>
 
-                <tbody>
+                  @foreach ($data->pagamentos as $p)
 
-                  @foreach ($treino->exercicios as $e)
+                      @if ($p->status == 0)
+                        <tr>
+                        <td>{{$p->data_vencimento}}</td>
+                        <td>
 
-                    <tr>
-                      <td>{{$e->name}}</td>
-                      <td>{{$e->pivot->aparelho}}</td>
-                      <td>{{$e->pivot->peso}}</td>
-                      <td>{{$e->pivot->serie}}</td>
-                      <td>{{$e->pivot->quantidade_serie}}</td>
-                      <td>{{$e->pivot->tempo}}</td>
-                    </tr>
+                          @if ($p->status_pagamento == 0)
+                            <h5 class="label label-danger"> ATRASADO </h5>
+
+                          @elseif ($p->status_pagamento == 1)
+                            <h5 class="label label-primary"> ABERTO </h5>
+
+                          @else
+                            <h5 class="label label-warning"> HOJE </h5>
+
+                          @endif
+
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target=".bs-example-modal-sm-pagamento{{ $p->id }}" >
+                            <i class="fa fa-usd"></i> PAGAR
+                          </button>
+                        </td>
+                        </tr>
+
+                        {{--Modal Pagamento--}}
+                        <div class="modal fade bs-example-modal-sm-pagamento{{ $p->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                          <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+
+
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                  </button>
+                                  <h4 class="modal-title" id="myModalLabel2">Pagar Mensalidade</h4>
+                                </div>
+
+                                <form action="{{$urlPagamento}}/{{ $p->id  }}" method="POST">
+                                <div class="modal-body">
+                                  Realizar o Pagamento?
+                                </div>
+                                <div class="modal-footer">
+                                  <input type="hidden" name="aluno_id" value="{{$data->id}}">
+                                  <input type="hidden" name="_method" value="put">
+                                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-usd"></i>
+                                    Pagar
+                                  </button>
+
+                                </div>
+
+                                </form>
+
+                            </div>
+                          </div>
+                        </div>
+
+
+                    @endif
                   @endforeach
 
-                </tbody>
-
-              </table>
-            </div>
+              </tbody>
+            </table>
           </div>
-        </div>
 
-        @endforeach
+        </div>
       </div>
     </div>
+    {{--Fecha a 2col 2row--}}
 
-  </div>
-</div>
 
-  <div class="col-md-6 col-sm-6 col-xs-12">
-    <div class="x_panel">
+    {{--Abre a 3col 2row--}}
 
-      <div class="x_title">
-        <h2>IMC</h2>
-        <div class="clearfix"></div>
-      </div>
+    <div class="col-md-5 col-sm-5 col-xs-12">
+      <div class="x_panel">
 
-      <div class="x_content">
+        <div class="x_title">
+          <h4>Pagamentos Adiantados</h4>
 
-        <div class="row">
-          <div class="col-md-6 col-xs-12">
-            <h3>peso</h3>
-            <h4>{{$data->peso}}</h4>
+          <div class="clearfix"></div>
+        </div>
 
-          </div>
+        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target=".bs-example-modal-sm-pagamento_adiantado" >
+          <i class="fa fa-usd"></i> PAGAR ADIANTADO
+        </button>
 
-          <div class="col-md-6 col-xs-12">
-            <h3>altura</h3>
-            <h4>{{$data->altura}}</h4>
+         <div class="clearfix"></div>
+
+        <div class="x_content">
+
+
+          <div class="table-responsive">
+            <table class="table" >
+              <thead>
+                <tr>
+                  <th>Vencimento</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                  @foreach ($data->pagamentos as $p)
+
+                      @if ($p->status == 1)
+                        @if ($p->status_pagamento == 3)
+
+                          <tr>
+                            <td>{{$p->data_vencimento}}</td>
+                            <td>
+                              <h5 class="label label-primary"> Pago </h5>
+                            </td>
+                          </tr>
+
+                        @endif
+                    @endif
+                  @endforeach
+
+              </tbody>
+            </table>
           </div>
 
         </div>
-        <div class="clearfix"></div>
-        <div class="row">
-          <div class="panel panel-default">
-            <div class="panel-body">
+      </div>
+    </div>
+    {{--Fecha a 3col 2row--}}
 
-              <div class="col-md-4 col-md-offset-">
-                <h3>IMC</h3>
-                <h4 class="label label-info">
-                  {{$data->imc}}
+</div>{{--Fecha a 2 row--}}
 
+
+{{--Abre a 3row--}}
+
+  <div class="row">
+
+    {{--Abre a 1col da 3Row--}}
+    <div class="col-md-5 col-sm-5 col-xs-12">
+      <div class="x_panel">
+
+        <div class="x_title">
+          <h3>
+            Treino
+            <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target=".bs-example-modal-sm-addTreino" >
+              <span class="glyphicon glyphicon-plus"></span>
+            </button>
+          </h3>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="x_content">
+          <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+
+          @foreach ($data->treinos as $treino)
+
+            <div class="panel">
+
+              <a class="panel-heading" role="tab" id="heading{{$treino->pivot->id }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$treino->pivot->id }}" aria-controls="collapse{{$treino->pivot->id }}">
+                <h4 class="panel-title">
+                  {{$treino->name}} - <small>{{$treino->pivot->dia_semana}}</small>
                 </h4>
+
+              </a>
+
+              <div id="collapse{{$treino->pivot->id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$treino->pivot->id}}">
+
+              <div class="panel-body">
+
+                <button type="button" class="btn btn-danger btn-xs pull-right" data-toggle="modal" data-target=".bs-example-modal-sm-deletaTreino{{ $treino->pivot->id }}" >
+                  <i class="fa fa-trash-o"></i> deletar
+                </button>
+
+                <div class="table-responsive ">
+                  <table class="tabletable-hover">
+                    <thead>
+                      <th>Exercicio</th>
+                      <th>Aparelho</th>
+                      <th>Peso</th>
+                      <th>serie</th>
+                      <th>Quantidade</th>
+                      <th>Tempo</th>
+                    </thead>
+
+                    <tbody>
+
+                      @foreach ($treino->exercicios as $e)
+
+                        <tr>
+                          <td>{{$e->name}}</td>
+                          <td>{{$e->pivot->aparelho}}</td>
+                          <td>{{$e->pivot->peso}}</td>
+                          <td>{{$e->pivot->serie}}</td>
+                          <td>{{$e->pivot->quantidade_serie}}</td>
+                          <td>{{$e->pivot->tempo}}</td>
+                        </tr>
+                      @endforeach
+
+                    </tbody>
+
+                  </table>
+                </div>
               </div>
+            </div>
+          </div>
 
-              <div class="col-md-4">
 
-                @if ($data->statusIMC=="Peso Adequado")
-                  <h3><i class="fa fa-thumbs-o-up"></i></h3>
-                  <h4 class="label label-info">
-                    {{$data->statusIMC}}
-                  </h4>
 
-                @else
-                  <h3><i class="fa fa-thumbs-o-down"></i></h3>
-                  <h4 class="label label-danger">
-                    {{$data->statusIMC}}
-                  </h4>
+          <!-- Modal exclusão de treinos-->
 
-                @endif
+          <div class="modal fade bs-example-modal-sm-deletaTreino{{ $treino->pivot->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
 
+
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel2">Deletar Treino</h4>
+                  </div>
+
+                  <form action="{{$urlAlunoTreino}}/{{ $treino->pivot->id  }}" method="POST">
+                  <div class="modal-body">
+
+                    Você deseja Deletar o Treino?
+
+                  </div>
+                  <div class="modal-footer">
+
+                    <input type="hidden" name="_method" value="delete">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">
+                      <i class="glyphicon glyphicon-trash"></i>
+                      Deletar
+                    </button>
+
+                  </div>
+
+                  </form>
 
               </div>
+            </div>
+          </div>
 
+
+          @endforeach
+        </div>
+      </div>
+
+    </div>
+  </div>{{--Fecha a 1col 3Row--}}
+
+  </div>
+{{--Fecha a 3row--}}
+
+
+
+
+
+
+{{--Abre a 4row--}}
+
+  <div class="row">
+
+    {{--Abre a 1col da 4Row--}}
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+
+        <div class="x_title">
+          <h3>
+            Avaliações
+            <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target=".bs-example-modal-sm-addAvaliacao" >
+              <span class="glyphicon glyphicon-plus"></span>
+            </button>
+          </h3>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="x_content">
+
+                <div class="table-responsive ">
+                  <table id="datatable-responsive" class="table table-striped jambo_table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+
+                    <thead>
+                      <th>ID</th>
+                      <th>Data</th>
+                      <th>Nota</th>
+                      <th>Ações</th>
+                    </thead>
+
+                    <tbody>
+
+                      @foreach ($data->avaliacoes as $avaliacao)
+
+                        <tr>
+                          <td>{{$avaliacao->id}}</td>
+                          <td>{{$avaliacao->data_avaliacao}}</td>
+                          <td>{{$avaliacao->nota}}</td>
+                          <td>
+                            <a class="btn btn-warning" href="{{$urlAvaliacoes}}/edit/{{ $avaliacao->id }}"><i class="fa fa-edit" ></i></a>
+                          </td>
+                        </tr>
+                      @endforeach
+
+                    </tbody>
+
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
 
-      </div>
 
-    </div>
-  </div>
-</div>
+
 
 <!-- Modal edit Foto-->
 
@@ -455,5 +730,93 @@
     </div>
   </div>
 </div>
+
+
+
+
+{{--Modal pagamento adiantado--}}
+<div class="modal fade bs-example-modal-sm-pagamento_adiantado" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel2">Adiantar Mensalidades</h4>
+        </div>
+
+        <form action="{{$urlPagamento}}/adiantamento" method="POST">
+
+          <div class="modal-body">
+
+            Quantas Parcelas deseja Pagar?
+            <input type="number" class="form-control" value="" name="parcelas" id="tQtd">
+            <input type="hidden" value="{{$data->plano->valor}}" id="tVlr">
+            <input type="text" value="" id="tot">
+
+          </div>
+
+
+        <div class="modal-footer">
+          <input type="hidden" name="aluno_id" value="{{$data->id}}">
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-usd"></i>
+            Pagar
+          </button>
+
+        </div>
+
+        </form>
+
+    </div>
+  </div>
+</div>
+
+
+
+{{--Modal cria avaliação--}}
+<div class="modal fade bs-example-modal-sm-addAvaliacao" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel2">Criar Avalição</h4>
+        </div>
+
+        <form action="{{$urlAvaliacoes}}" method="POST">
+
+          <div class="modal-body">
+
+
+            <input type="date" class="form-control" name="data_avaliacao">
+            <input type="hidden" name="aluno_id" value="{{$data->id}}">
+
+
+          </div>
+
+
+        <div class="modal-footer">
+
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-plus"></i>
+            Criar
+          </button>
+
+        </div>
+
+        </form>
+
+    </div>
+  </div>
+</div>
+
 
 @endsection

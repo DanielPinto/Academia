@@ -1,0 +1,1 @@
+[12-May-2017 19:08:35 UTC] PHP Fatal error:  'break' not in the 'loop' or 'switch' context in /home/daspinne/academia/app/Services/AlunoService.php on line 58

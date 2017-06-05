@@ -67,6 +67,13 @@
 
           </ul>
         </li>
+
+        <li><a><i class="fa fa-usd"></i> Pagamentos <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu">
+              <li><a href="{{url($urlSidebar.'pagamentos')}}">Listar</a></li>
+
+          </ul>
+        </li>
       @endif
 
 

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Aluno;
 use App\Models\Plano;
 use App\Models\Treino;
+use App\Models\Pagamento;
 use App\Models\Categoria;
+use App\Services\PagService;
 use App\Services\GeneralService;
 use App\Services\AlunoService;
 use Illuminate\Http\Request;
@@ -22,6 +24,8 @@ class AlunoController extends Controller
         private $treino;
         private $service;
         private $categoria;
+        private $pagamento;
+        private $pag_service;
 
 
         public function __construct(
@@ -30,7 +34,9 @@ class AlunoController extends Controller
           Plano $plano,
           Treino $treino,
           AlunoService $service,
-          Categoria $categoria
+          Categoria $categoria,
+          Pagamento $pagamento,
+          PagService $pag_service
         )
         {
 
@@ -43,6 +49,8 @@ class AlunoController extends Controller
            $this->treino = $treino;
            $this->service = $service;
            $this->categoria = $categoria;
+           $this->pagamento = $pagamento;
+           $this->pag_service = $pag_service;
 
          }
 
@@ -97,6 +105,7 @@ class AlunoController extends Controller
         ]);*/
 
         $imc = $this->service->calculaIMC($request->altura,$request->peso);
+        $data_cadastro = date('Y-m-d');
 
           $aluno =[
             'name' => $request->name,
@@ -116,12 +125,12 @@ class AlunoController extends Controller
             'data_nascimento' => $request->data_nascimento,
             'profissao' => $request->profissao,
             'dia_pagamento' => $request->dia_pagamento,
-            'status_pagamento' => 1,
             'peso' => $request->peso,
             'altura' => $request->altura,
             'imc' => $imc,
             'foto' => 'user.png',
             'status'=>1,
+            'data_cadastro'=> $data_cadastro,
             'atividade_diaria' => $request->atividade_diaria,
             'historico_atividade' => $request->historico_atividade,
             'categoria_id' => $request->categoria_id,
@@ -130,6 +139,11 @@ class AlunoController extends Controller
           ];
 
           $data = $this->model->create($aluno);
+
+          $plano = $this->plano->find($data->plano_id);
+
+          $pag = $this->pag_service->primeiroPagamento($data->id, $plano->valor, $data->data_cadastro, $data->dia_pagamento);
+
 
           $_SESSION["message"] = $this->general->messageSuccess('Aluno Cadastrado com sucesso!');
 
@@ -155,7 +169,7 @@ class AlunoController extends Controller
       session_start();
 
       $treinos = $this->treino->all();
-      $data = $this->model->with('treinos')->find($id);
+      $data = $this->model->with('treinos')->with('pagamentos')->with('avaliacoes')->with('plano')->find($id);
 
       if($data == null){
 
@@ -173,8 +187,12 @@ class AlunoController extends Controller
       $idade = $this->service->calc_idade($data->data_nascimento);
       $data->idade = $idade;
 
+      $data->data_nascimento = $this->general->dateInverse($data->data_nascimento);
+
       $statusIMC = $this->service->statusIMC($data->imc,$data->sexo,$idade);
       $data->statusIMC = $statusIMC;
+
+      $data->pagamentos = $this->pag_service->statusPagamento($data->pagamentos);
 
       return view($this->url.'.show')->with('data', $data)->with('treinos', $treinos);
     }

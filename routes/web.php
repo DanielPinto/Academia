@@ -43,6 +43,14 @@ Route::resource('exercicios', 'ExercicioController');
 
 Route::resource('formarTreinos', 'FormarTreinoController');
 
+Route::resource('formarAvaliacao', 'FormarAvaliacaoController');
+
+
 Route::resource('alunoTreinos', 'AlunoTreinoController');
 
-Route::resource('categoria', 'CategoriaController');
+Route::resource('categorias', 'CategoriaController');
+
+Route::resource('pagamentos', 'PagamentoController');
+Route::post('pagamentos/adiantamento', 'PagamentoController@adiantamento');
+
+Route::resource('avaliacoes', 'AvaliacaoController');

@@ -15,4 +15,9 @@ class Exercicio extends Model
 
     return $this->belongsToMany(Treino::class,'formar_treinos','exercicio_id','treino_id');
   }
+
+  public function avaliacao(){
+
+    return $this->belongsToMany(Avaliacao::class,'formar_avals','exercicio_id','avaliacao_id');
+  }
 }

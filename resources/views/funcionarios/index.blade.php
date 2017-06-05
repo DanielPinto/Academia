@@ -23,7 +23,7 @@
 
 
         <div class="x_content">
-          <br />
+          <div class="clearfix"></div>
           <table id="datatable-responsive" class="table table-striped jambo_table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
             <thead>
               <tr class="headings">

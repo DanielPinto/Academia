@@ -189,6 +189,7 @@ $(document).ready(function(){
     $('#valorAdd').mask('####0.00', {reverse: true});
     $('#peso').mask('#00.00', {reverse: true});
     $('#altura').mask('0.00', {reverse: true});
+    $('#desconto').mask('####0.00', {reverse: true});
 
 
 
@@ -339,3 +340,16 @@ $("#cep").blur(function(){
   });
 </script>
 <!-- /Datatables -->
+
+<script>
+var tQtd = document.getElementById( 'qtd' );
+var tVlr = document.getElementById( 'vlr' );
+var tTot = document.getElementById( 'tot' );
+
+tVlr.onkeyup=calcula;
+tQtd.onkeyup=calcula;
+
+function calcula() {
+tTot.value = tQtd.value * tVlr.value;
+}
+</script>

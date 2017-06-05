@@ -32,7 +32,6 @@ class CreateAlunosTable extends Migration
             $table->date('data_nascimento');
             $table->string('profissao');
             $table->integer('dia_pagamento');
-            $table->integer('status_pagamento');
             $table->float('peso');
             $table->float('altura');
             $table->string('foto');
@@ -40,6 +39,7 @@ class CreateAlunosTable extends Migration
             $table->integer('status');
             $table->string('atividade_diaria');
             $table->string('historico_atividade');
+            $table->date('data_cadastro');
             $table->integer('categoria_id')->unsigned();
             $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
             $table->integer('plano_id')->unsigned();

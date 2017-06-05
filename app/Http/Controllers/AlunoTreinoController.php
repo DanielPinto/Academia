@@ -142,8 +142,12 @@ class AlunoTreinoController extends Controller
      * @param  \App\Models\AlunoTreino  $alunoTreino
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AlunoTreino $alunoTreino)
+    public function destroy($id)
     {
-        //
+      // $this->model->delete($id);
+      $treino = $this->model->find($id);
+
+       return $treino;//redirect($this->url.'/'.$request->aluno_id);
+
     }
 }

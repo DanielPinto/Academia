@@ -25,7 +25,7 @@ class UserController extends Controller
    public function __construct(GeneralService $general, UserService $service)
    {
       $this->middleware('auth');
-      $this->middleware('role', ['except'=>'editSenha']);
+      $this->middleware('role', ['except'=>['editSenha','index']]);
       $this->general = $general;
       $this->service = $service;
     }
@@ -38,7 +38,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return User::all();
     }
 
     /**

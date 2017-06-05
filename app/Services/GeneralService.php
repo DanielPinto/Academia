@@ -63,5 +63,19 @@ public function nivelAuth(){
   return Auth::user()->auth;
 }
 
+public function dateInverse($date)
+{
+  $date_aux = explode('-',$date);
+
+  $date_inverse[0] = $date_aux[2];
+  $date_inverse[1] = $date_aux[1];
+  $date_inverse[2] = $date_aux[0];
+
+  $date_inverse = implode('-', $date_inverse);
+
+  return $date_inverse;
+
+}
+
 
 }

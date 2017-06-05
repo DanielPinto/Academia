@@ -112,4 +112,36 @@ class AlunoService
 
     }
 
+
+    public function proximoPagamento($dia_pagamento, $data_cadastro)
+    {
+      $proximo_pagamento = explode('-',$data_cadastro);
+
+      $proximo_pagamento[2] = $dia_pagamento;
+
+      if($proximo_pagamento[1] == 12)
+      {
+        $proximo_pagamento[1] = 1;
+      }else {
+        $proximo_pagamento[1] += 1;
+      }
+
+      $proximo_pagamento = implode('-', $proximo_pagamento);
+
+      return $proximo_pagamento;
+    }
+
+
+    public function primeiroPagamento($dia_pagamento, $data_cadastro)
+    {
+      $proximo_pagamento = explode('-',$data_cadastro);
+
+      $proximo_pagamento[2] = $dia_pagamento;
+
+      $proximo_pagamento = implode('-', $proximo_pagamento);
+
+      return $proximo_pagamento;
+    }
+
+
 }

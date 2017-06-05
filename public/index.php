@@ -21,6 +21,7 @@
 
 require __DIR__.'/../bootstrap/autoload.php';
 
+
 /*
 |--------------------------------------------------------------------------
 | Turn On The Lights
@@ -46,6 +47,8 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 | and wonderful application we have prepared for them.
 |
 */
+
+
 
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 

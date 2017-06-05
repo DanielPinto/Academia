@@ -1,0 +1,9 @@
+[17-Mar-2017 19:32:52 UTC] PHP Warning:  Uncaught ErrorException: require(/home/daspinne/laravel/routes/api.php): failed to open stream: No such file or directory in /home/daspinne/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php:314
+Stack trace:
+#0 /home/daspinne/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(314): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'require(/home/d...', '/home/daspinne/...', 314, Array)
+#1 /home/daspinne/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(314): require()
+#2 /home/daspinne/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php(270): Illuminate\Routing\Router->loadRoutes('/home/daspinne/...')
+#3 /home/daspinne/laravel/vendor/laravel/framework/src/Illuminate/Routing/RouteRegistrar.php(104): Illuminate\Routing\Router->group(Array, '/home/daspinne/...')
+#4 /home/daspinne/laravel/app/Providers/RouteServiceProvider.php(71): Illuminate\Routing\RouteRegistrar->group('/home/daspinne/...')
+#5 /home/daspinne/laravel/app/Providers/Ro in /home/daspinne/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php on line 314
+[17-Mar-2017 19:32:52 UTC] PHP Fatal error:  Illuminate\Routing\Router::loadRoutes(): Failed opening required '/home/daspinne/laravel/routes/api.php' (include_path='.:/opt/alt/php70/usr/share/pear') in /home/daspinne/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php on line 314

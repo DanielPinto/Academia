@@ -3,19 +3,104 @@
 namespace App\Http\Controllers;
 
 use App\Models\Avaliacao;
+use App\Models\Aluno;
+use App\Models\Exercicio;
+use App\Services\GeneralService;
 use Illuminate\Http\Request;
+
 
 class AvaliacaoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+
+  private $general;
+  private $url;
+  private $model;
+  private $aluno;
+  private $tipoExe;
+
+  public function __construct(
+    GeneralService $general,
+    Avaliacao $model,
+    Aluno $aluno,
+    Exercicio $tipoExe
+  )
+  {
+
+     $this->middleware('auth');
+     $this->middleware('role');
+     $this->general = $general;
+     $this->url = 'avaliacoes';
+     $this->model = $model;
+     $this->aluno = $aluno;
+     $this->tipoExe = $tipoExe;
+
+   }
+
+
+
+       /**
+        * Display a listing of the resource.
+        *
+        * @return \Illuminate\Http\Response
+        */
+       public function index()
+       {
+         session_start();
+
+         $data = $this->model->with('aluno')->get();
+
+         if (isset($_SESSION["message"])) {
+
+           $data->message = $_SESSION["message"];
+           unset($_SESSION["message"]);
+         }
+
+         return view($this->url.'.index')->with('data', $data);
+       }
+
+
+
+
+
+
+   public function show($id)
+   {
+     session_start();
+
+
+     $data = $this->model->with('aluno')->with('exercicios')->find($id);
+     $tipoExe = $this->tipoExe->all();
+
+     if($data == null){
+
+       $_SESSION["message"] = $this->general->messageError('Avaliação não Existente!');
+
+       return redirect($this->url);
+     }
+
+     if (isset($_SESSION["message"])) {
+       $data->message = $_SESSION["message"];
+       unset($_SESSION["message"]);
+     }
+
+
+     return view($this->url.'.show')->with('data', $data)->with('tipoExe', $tipoExe);
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -24,7 +109,7 @@ class AvaliacaoController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -35,7 +120,32 @@ class AvaliacaoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      session_start();
+
+      try {
+
+        $av =[
+          'data_avaliacao' => $request->data_avaliacao,
+          'nota' => null,
+          'aluno_id' => $request->aluno_id
+        ];
+
+        $data = $this->model->create($av);
+
+
+        $_SESSION["message"] = $this->general->messageSuccess('Avaliação criada com sucesso!');
+
+        return redirect($this->url.'/'.$data->id);
+
+      }catch (QueryException $e) {
+
+        $_SESSION["message"] = $this->general->messageSuccess('Erro ao inserir os dados! ');
+
+        return redirect($this->url.'/create');
+
+      }
+
+
     }
 
     /**
@@ -44,10 +154,7 @@ class AvaliacaoController extends Controller
      * @param  \App\Models\Avaliacao  $avaliacao
      * @return \Illuminate\Http\Response
      */
-    public function show(Avaliacao $avaliacao)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.

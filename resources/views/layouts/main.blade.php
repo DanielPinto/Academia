@@ -23,7 +23,7 @@
     <!-- include files styles css-->
     @include('includes.styles')
     <!--/ include files styles css-->
-
+<meta id="token" name="token" value="{{ csrf_token() }}" >
   </head>
 
   <body class="nav-md">
